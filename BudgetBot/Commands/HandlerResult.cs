@@ -6,5 +6,5 @@ public class HandlerResult
 {
     public string Message { get; set; } = string.Empty;
     
-    public InlineKeyboardMarkup? ButtonsMarkup { get; set; }
+    public IReplyMarkup? ButtonsMarkup { get; set; }
 }

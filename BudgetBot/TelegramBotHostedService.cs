@@ -8,6 +8,7 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace BudgetBot;
 
@@ -89,11 +90,7 @@ public partial class TelegramBotHostedService : BackgroundService
                 {
                     TelegramCommand.Spent => await _mediator.Send(new SpentRequest(messageData), cancellationToken),
                     TelegramCommand.SetBudget => await _mediator.Send(new SetBudgetCommand(messageData), cancellationToken),
-                    TelegramCommand.Start => new HandlerResult()
-                    {
-                        Message =
-                            $"Glad to see you! Please explore {TelegramCommand.Help.GetEnumMemberValue()} to start using bot."
-                    },
+                    TelegramCommand.Start => await _mediator.Send(new StartQuery(), cancellationToken),
                     TelegramCommand.Help => await _mediator.Send(new HelpCommand(), cancellationToken),
                     _ => result
                 };
